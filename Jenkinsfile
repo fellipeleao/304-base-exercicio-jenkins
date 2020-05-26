@@ -3,17 +3,17 @@ pipeline {
   	stages {
 		stage('Prepare'){
 			steps {
-				sh './mvnw clean'
+				sh 'sh mvnw clean'
 			}
 		}
   		stage('Build') {
       			steps {
-	  			sh './mvnw -B -DskipTests package'
+	  			sh 'sh mvnw -B -DskipTests package'
       			}
     		}
   		stage('Test') {
       			steps {
-          			sh './mvnw test'
+          			sh 'sh mvnw test'
       			}
     		}
 		stage('Deploy') {
