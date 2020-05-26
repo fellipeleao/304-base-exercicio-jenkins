@@ -18,7 +18,8 @@ pipeline {
     		}
 		stage('Deploy') {
 			steps {
-				sh 'scp target/Api-Investimentos-0.0.1-SNAPSHOT.jar ubuntu@18.222.5.148:/home/ubuntu/' 
+				sh 'tar -zcvf api-investimentos.tar.gz target/Api-Investimentos-0.0.1-SNAPSHOT.jar'
+				sh 'scp api-investimentos.tar.gz ubuntu@18.222.5.148:/home/ubuntu/' 
 			}
 		}
   	}
