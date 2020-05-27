@@ -5,7 +5,7 @@ pipeline {
         	HOST = '18.222.5.148'	
     	}
   	stages {
-		stage('Prepare'){
+		stage('Clean'){
 			steps {
 				sh 'sh mvnw clean'
 			}
