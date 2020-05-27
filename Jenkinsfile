@@ -1,5 +1,9 @@
 pipeline {
 	agent any
+	
+	environment {
+        	HOST = '18.222.5.148'	
+    	}
   	stages {
 		stage('Clean'){
 			steps {
@@ -18,9 +22,9 @@ pipeline {
     		}
 		stage('Deploy') {
 			steps {
-				sh 'tar -czf api-investimentos.tar.gz --directory=target/ Api-Investimentos-0.0.1-SNAPSHOT.jar'
-				sh 'scp api-investimentos.tar.gz ubuntu@18.222.5.148:/home/ubuntu/' 
-				sh 'ssh -t ubuntu@18.222.5.148 "sh /home/ubuntu/projetos/build/build-ex-jenkins.sh"'
+				sh 'tar -czf ${env.BUILD_TAG}.tar.gz --directory=target/ ${env.BUILD_TAG}.jar'
+				sh 'scp ${env.BUILD_TAG}.tar.gz ubuntu@${env.HOST}:/home/ubuntu/' 
+				sh 'ssh -t ubuntu@${env.HOST} "sh /home/ubuntu/projetos/build/build-ex-jenkins-2.sh ${env.BUILD_TAG} api-investimentos"'
 			}
 		}
   	}
