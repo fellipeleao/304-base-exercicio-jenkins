@@ -22,9 +22,10 @@ pipeline {
     		}
 		stage('Deploy') {
 			steps {
-				sh "tar -czf ${env.BUILD_TAG}.tar.gz --directory=target/ ${env.BUILD_TAG}.jar"
-				sh "scp ${env.BUILD_TAG}.tar.gz ubuntu@${env.HOST}:/home/ubuntu/"
-				sh "ssh -t ubuntu@${env.HOST} 'sh /home/ubuntu/projetos/build/build-ex-jenkins-2.sh ${env.BUILD_TAG} api-investimentos'"
+				sh "mv target/Api-Investimentos-0.0.1-SNAPSHOT.jar Api-Investimentos.jar"
+				sh "tar -czf Api-Investimentos.tar.gz Api-Investimentos.jar"
+				sh "scp Api-Investimentos.tar.gz ubuntu@${env.HOST}:/home/ubuntu/"
+				sh "ssh -t ubuntu@${env.HOST} 'sh /home/ubuntu/projetos/build/build-ex-jenkins-2.sh Api-Investimentos api-investimentos'"
 			}
 		}
   	}
