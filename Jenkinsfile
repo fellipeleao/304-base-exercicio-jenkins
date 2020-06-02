@@ -12,17 +12,17 @@ pipeline {
 		MYSQL_PORT = "$mySqlPort"
     	}
   	stages {
-		stage('Clean'){
+		stage('Prepare'){
 			steps {
 				sh 'sh mvnw clean'
 			}
 		}
-  		stage('Build') {
+  		stage('Build Application') {
       			steps {
 	  			sh 'sh mvnw -B -DskipTests package'
       			}
     		}
-  		stage('Test') {
+  		stage('Test Application') {
       			steps {
 				script {
                                 	checkout scm
@@ -40,6 +40,15 @@ pipeline {
 			steps {
 				script {
 					app = docker.build("registry-itau.mastertech.com.br/api-investimentos-fellipe")
+
+                    			withCredentials([
+                                		usernamePassword(
+                                    			credentialsId: 'registry_credential',
+                                    			passwordVariable: 'PASSWORD',
+                                    			usernameVariable: 'USERNAME')
+                                		]) {
+                                    			sh "docker login -p $PASSWORD -u $USERNAME registry-itau.mastertech.com.br"
+                                		}
 				}
 			}
 		}
