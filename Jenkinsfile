@@ -36,6 +36,13 @@ pipeline {
 				}
       			}
     		}
+		stage('Build Docker Image'){
+			steps {
+				script {
+					app = docker.build("registry-itau.mastertech.com.br/api-investimentos-fellipe")
+				}
+			}
+		}
 		stage('Deploy') {
 			steps {
 				sh "mv target/Api-Investimentos-0.0.1-SNAPSHOT.jar Api-Investimentos.jar"
