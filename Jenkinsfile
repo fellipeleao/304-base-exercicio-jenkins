@@ -27,7 +27,7 @@ pipeline {
 				script {
                                 	checkout scm
 
-                                	docker.image('mysql:8').withRun("-e 'MYSQL_ROOT_PASSWORD=Horn1403*' -e 'MYSQL_MY_DATABASE=invest' -p $mySqlPort:3306") { c ->
+                                	docker.image('mysql:5').withRun("-e 'MYSQL_ROOT_PASSWORD=mt123' -e 'MYSQL_MY_DATABASE=invest' -p $mySqlPort:3306") { c ->
                                         	/* Wait until mysql service is up */
                                         	sh 'while ! mysqladmin ping -h0.0.0.0 -P $mySqlPort --silent; do sleep 1; done'
 
