@@ -50,12 +50,16 @@ pipeline {
                                 		]) {
                                     			sh "docker login -p $PASSWORD -u $USERNAME registry-itau.mastertech.com.br"
                                 		}
+
+                    			docker.withRegistry("https://registry-itau.mastertech.com.br", "registry_credential") {
+                        			app.push("${env.BUILD_NUMBER}")
+                        			app.push("latest")
+                    			}  
 				}
 			}
 		}
 		stage('Deploy') {
 			steps {
-				sh "mv target/Api-Investimentos-0.0.1-SNAPSHOT.jar Api-Investimentos.jar"
 				sh "tar -czf Api-Investimentos.tar.gz Api-Investimentos.jar"
 				sh "scp Api-Investimentos.tar.gz ubuntu@${env.HOST}:/home/ubuntu/"
 			}
