@@ -9,7 +9,7 @@ pipeline {
                         returnStdout: true
                 ).trim()
 
-		MYSQL_PORT=$mySqlPort
+		MYSQL_PORT = "$mySqlPort"
     	}
   	stages {
 		stage('Clean'){
