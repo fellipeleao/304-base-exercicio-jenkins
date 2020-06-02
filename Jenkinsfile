@@ -17,11 +17,6 @@ pipeline {
 				sh 'sh mvnw clean'
 			}
 		}
-  		stage('Build Application') {
-      			steps {
-	  			sh 'sh mvnw -B -DskipTests package'
-      			}
-    		}
   		stage('Test Application') {
       			steps {
 				script {
@@ -36,6 +31,12 @@ pipeline {
 				}
       			}
     		}
+                stage('Build Application') {
+                        steps {
+                                sh 'sh mvnw -B -DskipTests package'
+                                sh "mv target/Api-Investimentos-0.0.1-SNAPSHOT.jar Api-Investimentos.jar"
+                        }
+                }
 		stage('Build Docker Image'){
 			steps {
 				script {
