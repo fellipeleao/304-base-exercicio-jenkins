@@ -60,8 +60,7 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				sh "tar -czf Api-Investimentos.tar.gz Api-Investimentos.jar"
-				sh "scp Api-Investimentos.tar.gz ubuntu@${env.HOST}:/home/ubuntu/"
+				sh "echo 'Deploy Part'"
 			}
 		}
   	}
